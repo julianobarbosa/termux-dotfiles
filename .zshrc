@@ -182,3 +182,4 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS+=(main brackets pattern cursor)
 #   *) export PATH="$PNPM_HOME:$PATH" ;;
 # esac
 # pnpm end
+eval "$(direnv hook zsh)"
