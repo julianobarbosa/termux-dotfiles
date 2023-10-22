@@ -210,6 +210,9 @@ if [[ "$neovim" == [Nn]* ]]; then
   rm -rf ~/.config/nvim ~/.local/share/nvim/
 fi
 
+echo "Clone .dotfiles ~/.dotfiles"
+git clone https://github.com/julianobarbosa/.dotfiles.git ~
+
 echo "Clone neovim-ide into ~/.config/nvim"
 git clone https://github.com/julianobarbosa/neovim-ide.git ~/.config/nvim
 
@@ -236,7 +239,7 @@ sleep 5
 
 # Install Nala Package Manager, Z Shell, Termux Clipboard, Git, GitHub CLI, Neovim, NodeJS, Python-pip, Ruby, wget, logo-ls, Timewarrior, Taskwarrior, htop
 apt update && apt install nala -y
-nala install termux-api gh atuin kubectl k9s neovim nodejs python-torch python-pillow python-numpy python-pip ruby rust luarocks luajit ripgrep fd lazygit wget gettext logo-ls ncurses-utils libuv timewarrior taskwarrior htop -y || error_exit "${RED}Failed to install packages.${ENDCOLOR}"
+nala install binutils termux-api gh atuin kubectl k9s neovim nodejs python-torch python-pillow python-numpy python-pip ruby golang rust luarocks luajit ripgrep fd lazygit wget gettext logo-ls ncurses-utils libuv stow timewarrior taskwarrior htop -y || error_exit "${RED}Failed to install packages.${ENDCOLOR}"
 
 # Install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
@@ -263,3 +266,21 @@ python -m pip install -U pip setuptools wheel
 python -m pip install -U ansible ansible-lint autoenv autopep8 black codespell colorama cookiecutter fast.com flake8 gnucash-to-beancount isort jedi-language-server jrnl mps-youtube molecule mypy pre-commit prospector pyarmor pydocstyle pyflakes pylama pylint pyls rows speedtest-cli reorder-python-imports thefuck zabbix-api youtube-dl tmuxp vulture yapf yamlfix yamllint visidata virtualenv virtualenvwrapper
 
 
+
+echo "--- Install coreutils ---"
+cargo install coreutils --locked || error_exit "${RED}Failed to update packages.${ENDCOLOR}"
+
+echo "--- Install cargo-binutils ---"
+cargo install cargo-binutils --locked || error_exit "${RED}Failed to update packages.${ENDCOLOR}"
+
+echo "--- Install tree-sitter-cli ---"
+cargo install tree-sitter-cli --git https://github.com/tree-sitter/tree-sitter.git --tag v0.18.3 || error_exit "${RED}Failed to update packages.${ENDCOLOR}"
+
+echo "--- Install cargo-make ---"
+cargo install cargo-make --locked || error_exit "${RED}Failed to update packages.${ENDCOLOR}"
+
+echo "--- Install rust_fzf ---"
+cargo add rust_fzf --locked || error_exit "${RED}Failed to update packages.${ENDCOLOR}"
+
+echo "--- Install git-delta ---"
+cargo install git-delta --locked || error_exit "${RED}Failed to update packages.${ENDCOLOR}"
