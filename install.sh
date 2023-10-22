@@ -210,6 +210,9 @@ if [[ "$neovim" == [Nn]* ]]; then
   rm -rf ~/.config/nvim ~/.local/share/nvim/
 fi
 
+echo "Clone neovim-ide into ~/.config/nvim"
+git clone https://github.com/julianobarbosa/neovim-ide.git ~/.config/nvim
+
 # Hide README.md
 file_path="$HOME/GitHub/dotfiles"
 
@@ -233,7 +236,10 @@ sleep 5
 
 # Install Nala Package Manager, Z Shell, Termux Clipboard, Git, GitHub CLI, Neovim, NodeJS, Python-pip, Ruby, wget, logo-ls, Timewarrior, Taskwarrior, htop
 apt update && apt install nala -y
-nala install termux-api gh neovim nodejs python-pip ruby luarocks luajit ripgrep fd lazygit wget gettext logo-ls ncurses-utils libuv timewarrior taskwarrior htop -y || error_exit "${RED}Failed to install packages.${ENDCOLOR}"
+nala install termux-api gh atuin kubectl k9s neovim nodejs python-torch python-pillow python-numpy python-pip ruby rust luarocks luajit ripgrep fd lazygit wget gettext logo-ls ncurses-utils libuv timewarrior taskwarrior htop -y || error_exit "${RED}Failed to install packages.${ENDCOLOR}"
+
+# Install nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
 
 # Install pynvim, pnpm and neovim npm package, and neovim gem package
 pip install pynvim || error_exit "${RED}Failed to install pynvim.${ENDCOLOR}"
@@ -245,3 +251,15 @@ luarocks install lpeg || error_exit "${RED}Failed to install lpeg.${ENDCOLOR}"
 
 # Finish Setup
 echo -e "${GREEN}Setup Complete! Press Ctrl+D for changes to take effect.${ENDCOLOR}"
+
+# python virtualenvs
+mkdir -p ~/.virtualenvs
+cd ~/.virtualenvs
+
+# tools3
+python -m venv tools3
+source ~/.virtualenvs/tools3/bin/activate
+python -m pip install -U pip setuptools wheel
+python -m pip install -U ansible ansible-lint autoenv autopep8 black codespell colorama cookiecutter fast.com flake8 gnucash-to-beancount isort jedi-language-server jrnl mps-youtube molecule mypy pre-commit prospector pyarmor pydocstyle pyflakes pylama pylint pyls rows speedtest-cli reorder-python-imports thefuck zabbix-api youtube-dl tmuxp vulture yapf yamlfix yamllint visidata virtualenv virtualenvwrapper
+
+
