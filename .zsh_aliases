@@ -72,3 +72,191 @@ alias bad='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME diff' # Git bar
 alias bpu='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME push' # Git bare push
 alias bpl='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME pull' # Git bare push
 
+# docker
+alias checkov-iac='docker run -v $(pwd):/iac checkov-iac'
+
+# aliases
+alias ....='cd ../../../../'
+alias ...='cd ../../../'
+alias ..='cd ..'
+alias 9='k9s -c pod'
+alias E="nvim -o "
+alias dev="source ~/.local/bin/k8s-poli-nonprod.sh"
+alias dev-sp="source ~/.local/bin/k8s-poli-dev-sp.sh"
+alias prd="source ~/.local/bin/k8s-poli-prd.sh"
+alias prod="source ~/.local/bin/k8s-poli-prod.sh"
+alias shared="source ~/.local/bin/k8s-poli-shared.sh"
+alias stg="source ~/.local/bin/k8s-poli-stg.sh"
+alias gcp="source ~/.local/bin/k8s-poli-gcp-sp.sh"
+alias ..='cd ..'
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
+alias awsp="source _awsp"
+alias back='cd $OLDPWD'
+alias c='clear'
+alias cd..='cd ..'
+alias cdp='cd $HOME_PRJ'
+alias dep="source ~/.local/bin/k8s-poli-deploy.sh"
+alias dev-sp="source ~/.local/bin/k8s-poli-dev-sp.sh"
+alias dev="source ~/.local/bin/k8s-poli-nonprod.sh"
+alias df='df -h -x squashfs -x tmpfs -x devtmpfs'
+alias e="nvim "
+alias egrep='egrep --colour=auto'
+alias extip='curl icanhazip.com'
+alias fux='tmuxp load $(tmuxp ls | fzf --layout=reverse --info=inline --height=40%)'
+alias gcp="source ~/.local/bin/k8s-poli-gcp-sp.sh"
+alias grep='grep --color=auto'
+alias h='history -i 1'
+alias history='history 1'
+alias j='jobs -l'
+alias cp='cp -iv'
+alias chmod="chmod -c"
+alias chown="chown -c"
+alias df='df -h -x squashfs -x tmpfs -x devtmpfs'
+alias egrep='egrep --colour=auto'
+alias extip='curl icanhazip.com'
+alias grep='grep --color=auto'
+alias hclip="history | tail -n1 | cut -c 8- | xclip -sel clip"
+alias fclip="history -n 1000 | fzf | cut -c 8- | xclip -sel clip"
+alias k='kubectl'
+alias kctx='kubectx'
+alias kk='kubectl krew'
+alias kg='k get'
+alias kns='kubens'
+alias ks='kubescape'
+alias kseal='kubeseal --controller-name=sealed-secrets --scope namespace-wide'
+alias kst='kubectl get deploy -o json |  jq ".items[] | {name:.metadata.name} + .spec.strategy.rollingUpdate"'
+alias kt='kubetail'
+alias kts='stern'
+alias l.=' ls -lhFa --time-style=long-iso --color=auto'
+alias ll=' ls'
+alias ls=' ls -lhF --time-style=long-iso --color=auto'
+alias lzd='lazydocker'
+alias lsmount='mount |column -t'
+alias mv='mv -iv'
+alias neofetch='neofetch --ascii_colors 2 7 --colors 2 7 2 2 7 7 2'
+alias nvim=nvimvenv
+alias open='xdg-open'
+alias pf="fzf --preview='less {}' --bind shift-up:preview-page-up,shift-down:preview-page-down"
+alias ports='netstat -tulanp'
+alias power='system76-power profile performance'
+alias prd="source ~/.local/bin/k8s-poli-prd.sh"
+alias prod="source ~/.local/bin/k8s-poli-prod.sh"
+alias prod-sp="source ~/.local/bin/k8s-poli-prod-sp.sh"
+alias shared="source ~/.local/bin/k8s-poli-shared.sh"
+alias stg="source ~/.local/bin/k8s-poli-stg.sh"
+alias t="tmux"
+alias ta="t a -t"
+alias tls="t ls"
+alias tn="t new -t"
+alias tfd="/usr/local/bin/terraform-dnx"
+alias h='history -i 1'
+alias history='history 1'
+alias j='jobs -l'
+alias mv='mv -iv'
+alias zshconfig="nvim ~/.zshrc"
+
+# A way to define and run tasks in a project. It's like make except it's pure
+# Bash so there's no make limitations like not being able to forward arguments.
+
+alias run=./run
+
+alias speedtest='curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -'
+alias sproxy='ssh -p 2099 -D 9090 -q -C -N -f jay@vpn.home-network.io'
+alias ssha='eval $(ssh-agent) && ssh-add'
+alias start='xdg-open'
+alias sv='sudo nvim'
+alias svim='sudo nvim'
+alias tl=' tmux list-windows -a'
+alias tn=' tmux new -s'
+alias v='nvim'
+alias vdestroy='vagrant destroy'
+alias vi='nvim'
+alias vim='nvim'
+alias vdestroy='vagrant destroy'
+alias vssh='vagrant ssh'
+alias vup='vagrant up'
+alias watch='watch -d'
+alias weather='curl wttr.in'
+alias wget='wget -c'
+
+if command -v colordiff > /dev/null 2>&1; then
+    alias diff="colordiff -Nuar"
+else
+    alias diff="diff -Nuar"
+fi
+
+## get top process eating memory
+alias mem5='ps auxf | sort -nr -k 4 | head -5'
+alias mem10='ps auxf | sort -nr -k 4 | head -10'
+
+## get top process eating cpu ##
+alias cpu5='ps auxf | sort -nr -k 3 | head -5'
+alias cpu10='ps auxf | sort -nr -k 3 | head -10'
+
+## List largest directories (aka "ducks")
+alias dir5='du -cksh * | sort -hr | head -n 5'
+alias dir10='du -cksh * | sort -hr | head -n 10'
+
+# Safetynets
+# do not delete / or prompt if deleting more than 3 files at a time #
+alias rm='rm -I --preserve-root'
+
+# Parenting changing perms on / #
+alias chown='chown --preserve-root'
+alias chmod='chmod --preserve-root'
+alias chgrp='chgrp --preserve-root'
+
+# reload zshrc config
+alias reload="source ~/.zshrc"
+
+# Manage packages easier
+if [ -f /usr/bin/apt ]; then
+  alias update='sudo apt update'
+  alias upgrade='sudo apt update && sudo apt dist-upgrade && sudo apt autoremove && sudo apt clean'
+  alias install='sudo apt install'
+fi
+
+if [ -f /usr/bin/pacman ]; then
+  alias update='sudo pacman -Syyy'
+  alias upgrade='sudo pacman -Syu'
+  alias install='sudo pacman -S'
+fi
+
+# URL: https://github.com/mrhavens/Dedockify/blob/9548dbfff828a89dc580485036aaf84de7f462d7/README.md
+alias dedockify="docker run -v /var/run/docker.sock:/var/run/docker.sock --rm mrhavens/dedockify"
+
+# kubernetes
+# URL: https://github.com/kubernetes/kubernetes/issues/17512
+
+alias util='kubectl get nodes --no-headers | awk '\''{print $1}'\'' | xargs -I {} sh -c '\''echo {} ; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo '\'''
+
+# Get CPU request total (we x20 because because each m3.large has 2 vcpus (2000m) )
+alias cpualloc='util | grep % | awk '\''{print $1}'\'' | awk '\''{ sum += $1 } END { if (NR > 0) { print sum/(NR*20), "%\n" } }'\'''
+
+# Get mem request total (we x75 because because each m3.large has 7.5G ram )
+alias memalloc='util | grep % | awk '\''{print $5}'\'' | awk '\''{ sum += $1 } END { if (NR > 0) { print sum/(NR*75), "%\n" } }'\'''
+
+# AWS Check
+alias aws-check="curl -s https://ip-ranges.amazonaws.com/ip-ranges.json \
+  | jq '.prefixes | map(select(.service==\"ROUTE53_HEALTHCHECKS\")) | map(.ip_prefix)'"
+
+# sudo for 1Password
+alias sudo="sudo -A"
+alias op="/mnt/c/Temp/_temp/cli/shims/op.exe"
+
+alias code="/mnt/c/Program\ Files/Microsoft\ VS\ Code/Code.exe"
+
+# json
+alias prettyjson='python -m json.tool'
+
+# terraform
+alias tf='terraform'
+alias tfa='terraform apply'
+alias tfc='terraform console'
+alias tfd='terraform destroy'
+alias tff='terraform fmt'
+alias tfi='terraform init'
+alias tfo='terraform output'
+alias tfp='terraform plan'
+alias tfv='terraform validate'
