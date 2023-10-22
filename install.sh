@@ -256,7 +256,7 @@ sleep 5
 
 # Install Nala Package Manager, Z Shell, Termux Clipboard, Git, GitHub CLI, Neovim, NodeJS, Python-pip, Ruby, wget, logo-ls, Timewarrior, Taskwarrior, htop
 apt update && apt install nala -y
-nala install binutils ctags termux-api gh atuin kubectl k9s neovim nodejs ninja python-tkinter python-greenlet python-cryptography matplotlib python-torch python-pillow python-numpy python-pip ruby golang rust luarocks luajit ripgrep fd lazygit wget gettext logo-ls ncurses-utils libuv stow  libxml2  libxslt timewarrior taskwarrior htop -y || error_exit "${RED}Failed to install packages.${ENDCOLOR}"
+nala install binutils ctags termux-api gh atuin kubectl k9s which neovim nodejs ninja python-tkinter python-greenlet python-cryptography matplotlib python-torch python-pillow python-numpy python-pip ruby golang rust luarocks luajit ripgrep fd lazygit wget gettext logo-ls ncurses-utils libuv stow  libxml2  libxslt timewarrior taskwarrior htop -y || error_exit "${RED}Failed to install packages.${ENDCOLOR}"
 
 # Install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
