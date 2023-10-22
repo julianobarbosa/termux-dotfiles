@@ -16,6 +16,8 @@ function error_exit {
 termux-setup-storage
 
 # Update Packages
+echo "--- Install termux repo for python3.9"
+pkg install tur-repo
 apt update && yes | apt upgrade || error_exit "${RED}Failed to update packages.${ENDCOLOR}"
 apt update && apt install gh zsh openssh -y
 
