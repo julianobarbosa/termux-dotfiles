@@ -43,12 +43,17 @@ if [ ! -f ~/.ssh/id_ed25519 ]; then
   HOME=/data/data/com.termux/files/home ssh-add ~/.ssh/id_ed25519
 fi
 
+# Create file containing SSH public key for verifying signers
+awk '{ print $3 " " $1 " " $2 }' ~/.ssh/id_ed25519.pub >> ~/.ssh/allowed_signers
+
 if [[ "$choice" == [Yy]* ]]; then
   # Set the Git username and email system-wide
   git config --system user.name "$username"
   git config --system user.email "$email"
   git config --system gpg.format ssh
   git config --system user.signingkey ~/.ssh/id_ed25519.pub
+  git config --system gpg.ssh.allowedSignersFile ~/.ssh/allowed_signers
+  git config --system log.showSignature true
   git config --system commit.gpgsign true
   git config --system tag.gpgsign true
   git config --system push.autoSetupRemote true
@@ -61,11 +66,15 @@ if [[ "$choice" == [Yy]* ]]; then
   git config --system color.interactive auto
   git config --system color.diff auto
   git config --system status.short true
+  git config --system alias.assume-unchanged 'update-index --assume-unchanged'
+  git config --system alias.assume-changed 'update-index --no-assume-unchanged'
   # Transfer gh helper config to system config
   cat "$HOME/.gitconfig" >> "/data/data/com.termux/files/usr/etc/gitconfig"
   # Clean up unnecessary file
   rm "$HOME/.gitconfig"
-  echo "Your public key (id_ed25519.pub) is:"
+  # Provide Pubkey for gpgsigning
+  echo "${YELLOW}COPY THE FOLLOWING OUTPUT${ENDCOLOR}"
+  echo "${YELLOW}Your public key (id_ed25519.pub) is${ENDCOLOR}:"
   cat ~/.ssh/id_ed25519.pub
   sleep 25
   echo -e "${GREEN}Git credentials configured system-wide.${ENDCOLOR}"
@@ -75,6 +84,8 @@ else
   git config --global user.email "$email"
   git config --global gpg.format ssh
   git config --global user.signingkey ~/.ssh/id_ed25519.pub
+  git config --global gpg.ssh.allowedSignersFile ~/.ssh/allowed_signers
+  git config --global log.showSignature true
   git config --global commit.gpgsign true
   git config --global tag.gpgsign true
   git config --global push.autoSetupRerun true
@@ -87,9 +98,13 @@ else
   git config --global color.interactive auto
   git config --global color.diff auto
   git config --global status.short true
+  git config --global alias.assume-unchanged 'update-index --assume-unchanged'
+  git config --global alias.assume-changed 'update-index --no-assume-unchanged'
+  # Provide Pubkey for gpgsigning
+  echo "${YELLOW}COPY THE FOLLOWING OUTPUT${ENDCOLOR}"
   echo "${YELLOW}Your public key (id_ed25519.pub) is${ENDCOLOR}:"
   cat ~/.ssh/id_ed25519.pub
-  sleep 30
+  sleep 25
   echo -e "${GREEN}Git credentials configured globally.${ENDCOLOR}"
 fi
 
@@ -177,6 +192,7 @@ if [ -e "$file_path" ]; then
     echo "${GREEN}Hiding README.md in ~/.termux ${ENDCOLOR}"
     echo "${GREEN}moving...${ENDCOLOR}"
     git --git-dir="$HOME/GitHub/dotfiles" --work-tree="$HOME" mv README.md ~/.termux/README.md || error_exit "${RED}Failed to hide README.md.${ENDCOLOR}"
+    git --git-dir="$HOME/GitHub/dotfiles" --work-tree="$HOME" update-index --assume-unchanged README.md || error_exit "${RED}Failed to hide README.md.${ENDCOLOR}"
   else
     echo "${RED}File exists but is not readable. Cannot execute Git command.${ENDCOLOR}"
   fi

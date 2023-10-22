@@ -1,7 +1,7 @@
 "Plugins {{{
 call plug#begin()
   Plug 'navarasu/onedark.nvim'
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'neoclide/coc.nvim', { 'branch': 'release' }
   Plug 'honza/vim-snippets'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
@@ -9,7 +9,7 @@ call plug#begin()
   Plug 'yamatsum/nvim-cursorline'
   Plug 'windwp/nvim-autopairs'
   Plug 'kshenoy/vim-signature'
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
   Plug 'ryanoasis/vim-devicons'
   Plug 'nvim-tree/nvim-web-devicons'
   Plug 'HiPhish/rainbow-delimiters.nvim'
@@ -31,8 +31,8 @@ call plug#end()
 
 " Run PlugInstall if there are missing plugins {{{
 autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  \| PlugInstall --sync | source $MYVIMRC
-\| endif
+      \| PlugInstall --sync | source $MYVIMRC
+      \| endif
 "}}}
 
 " Theme {{{
@@ -67,6 +67,7 @@ let g:strip_whitelines_at_eof=1
 let g:show_spaces_that_precede_tabs=1
 
 " autocmd VimLeave * wshada!
+command! UP PlugUpdate | CocUpdate
 "}}}
 
 " Providers {{{
@@ -108,6 +109,7 @@ let g:coc_global_extensions = [
   \'coc-html-css-support',
   \'coc-eslint',
   \'coc-emmet',
+  \'coc-word'
 \]
 "}}}
 
@@ -175,6 +177,52 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 "}}}
+
+" CoC Notify Integration {{{
+function! s:DiagnosticNotify() abort
+  let l:info = get(b:, 'coc_diagnostic_info', {})
+  if empty(l:info) | return '' | endif
+  let l:msgs = []
+  let l:level = 'info'
+   if get(l:info, 'warning', 0)
+    let l:level = 'warn'
+  endif
+  if get(l:info, 'error', 0)
+    let l:level = 'error'
+  endif
+
+  if get(l:info, 'error', 0)
+    call add(l:msgs, ' Errors: ' . l:info['error'])
+  endif
+  if get(l:info, 'warning', 0)
+    call add(l:msgs, ' Warnings: ' . l:info['warning'])
+  endif
+  if get(l:info, 'information', 0)
+    call add(l:msgs, ' Infos: ' . l:info['information'])
+  endif
+  if get(l:info, 'hint', 0)
+    call add(l:msgs, ' Hints: ' . l:info['hint'])
+  endif
+  let l:msg = join(l:msgs, "\n")
+  if empty(l:msg) | let l:msg = ' All OK' | endif
+  call v:lua.coc_diag_notify(l:msg, l:level)
+endfunction
+
+function! s:StatusNotify() abort
+  let l:status = get(g:, 'coc_status', '')
+  let l:level = 'info'
+  if empty(l:status) | return '' | endif
+  call v:lua.coc_status_notify(l:status, l:level)
+endfunction
+
+function! s:InitCoc() abort
+  execute "lua vim.notify('Initialized coc.nvim for LSP support', 'info', { title = 'LSP Status' })"
+endfunction
+
+" notifications
+autocmd User CocNvimInit call s:InitCoc()
+autocmd User CocDiagnosticChange call s:DiagnosticNotify()
+autocmd User CocStatusChange call s:StatusNotify()"}}}
 
 " setup mapping to call :LazyGit {{{
 nnoremap <silent> <leader>gg :LazyGit<CR>
@@ -325,7 +373,7 @@ require'nvim-treesitter.configs'.setup {
     -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
     -- the name of the parser)
     -- list of language that will be disabled
-    disable = { "c", "rust" },
+    disable = {},
     -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
     disable = function(lang, buf)
 local max_filesize = 100 * 1024 -- 100 KB
@@ -520,6 +568,38 @@ npairs.setup({
 
 -- Vim Notify {{{
 vim.notify = require("notify")
+--}}}
+
+-- CoC Integration with Vim Notify {{{
+local coc_status_record = {}
+
+function coc_status_notify(msg, level)
+  local notify_opts = { title = "LSP Status", timeout = 500, hide_from_history = true, on_close = reset_coc_status_record }
+  -- if coc_status_record is not {} then add it to notify_opts to key called "replace"
+  if coc_status_record ~= {} then
+    notify_opts["replace"] = coc_status_record.id
+  end
+  coc_status_record = vim.notify(msg, level, notify_opts)
+end
+
+function reset_coc_status_record(window)
+  coc_status_record = {}
+end
+
+local coc_diag_record = {}
+
+function coc_diag_notify(msg, level)
+  local notify_opts = { title = "LSP Diagnostics", timeout = 500, on_close = reset_coc_diag_record }
+  -- if coc_diag_record is not {} then add it to notify_opts to key called "replace"
+  if coc_diag_record ~= {} then
+    notify_opts["replace"] = coc_diag_record.id
+  end
+  coc_diag_record = vim.notify(msg, level, notify_opts)
+end
+
+function reset_coc_diag_record(window)
+  coc_diag_record = {}
+end
 --}}}
 
 -- NeoTree {{{

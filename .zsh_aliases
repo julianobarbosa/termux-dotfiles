@@ -1,6 +1,19 @@
-alias apt='nala' # Replace apt with nala
-alias a='apt-get' # APT Package Manager
-alias uwu='nala upgrade -y' # Nala update && Nala upgrade -y
+# Nala Aliases
+alias n='nala' # A faster, prettier front-end for libapt
+alias nf='nala fetch' # Nala Fastest Mirror
+alias nu='nala update' # Nala Update
+alias nfu='nala upgrade -y' # Nala Update & Full-Upgrade
+alias ni='nala install -y' # Nala Install
+alias nr='nala remove -y' # Nala Remove
+alias np='nala purge -y' # Nala Purge
+alias nc='nala clean' # Nala Clean
+alias na='nala autoremove -y' # Nala Auto Remove
+alias nh='nala history' # Nala History
+alias nl='nala list' # Nala List
+alias ns='nala search' # Nala Search
+alias nv='nala show' # Nala View Package Info
+
+# Bun Aliases
 alias bun='grun ~/.bun/bin/bun'
 alias bn='grun ~/.bun/bin/bun' # A complete toolkit for building JavaScript apps
 alias bni='grun ~/.bun/bin/bun install' # Bun Install
@@ -18,26 +31,10 @@ alias bnul='grun ~/.bun/bin/bun unlink' # Bun Unlink
 alias bnpm='grun ~/.bun/bin/bun pm' # Bun Package Manager
 alias bnb='grun ~/.bun/bin/bun build' # Bun Build
 alias bnup='grun ~/.bun/bin/bun upgrade' # Bun Upgrade
-alias 10k='p10k configure' # Configure Powerlevel10k
-alias e='nvim' # A highly customizable editor
-alias z='zsh' #The better shell
-alias t='tmux' # Terminal Multiplexer
-alias aXs='acodeX-server' # Start AcodeX Server
-alias ghb='cd ~/GitHub' # Jump to GitHub Projects
-alias ct='clear' # Clear Terminal
-alias cl='zsh /data/data/com.termux/files/usr/etc/motd/init.sh' # Clear terminal
-alias n='nala' # A faster, prettier front-end for libapt
-alias nf='nala fetch' # Nala Fastest Mirror
-alias nu='nala update' # Nala Update
-alias nfu='nala upgrade -y' # Nala Update & Full-Upgrade
-alias ni='nala install -y' # Nala Install
-alias nr='nala remove -y' # Nala Remove
-alias np='nala purge -y' # Nala Purge
-alias na='nala autoremove -y' # Nala Auto Remove
-alias nh='nala history' # Nala History
-alias nl='nala list' # Nala List
-alias ns='nala search' # Nala Search
-alias nv='nala show' # Nala View Package Info
+alias bnli='grun ~/.bun/bin/bun lint' # Run Prettier & ESLint
+alias bnlf='grun ~/.bun/bin/bun lintfix' # Run Prettier & ESLint, Fix Errors
+
+# PNPM Aliases
 alias pi='pnpm install' # PNPM Install Packages from package.json
 alias p='pnpm' # PNPM Package Manager
 alias pa='pnpm add' # PNPM Add Package
@@ -45,6 +42,7 @@ alias pb='pnpm build' # PNPM Create Bundle Package
 alias pcl='pnpm config list' # PNPM Config List
 alias pi='pnpm install' # PNPM Install from package.json
 alias pil='pnpm install --frozen-lockfile' # PNPM Lockfile not updated
+alias pin='pnpm install --no-lockfile' # PNPM Lockfile not generated
 alias pu='pnpm update' # PNPM Update Packages
 alias pr='pnpm run' # PNPM Run Script
 alias prm='pnpm remove' # PNPM Remove Package
@@ -54,23 +52,19 @@ alias plf='pnpm lintfix' # Run Prettier & ESLint, Fix Errors
 alias pt='pnpm test' # PNPM Run Test
 alias pau='pnpm audit' # PNPM Audit Vuln Deps
 alias pauf='pnpm audit --fix' # PNPM Fix Vuln Deps
-alias tr='trash-put' # Trash Files & Directories
-alias trl='trash-list' # List Trash Contents
-alias trr='trash-restore' # Restore File
-alias tre='trash-empty' # Empty Trash
-alias trm='trash-rm' # Remove Individual Files from Trash
+
+# Taskwarrior Aliases
 alias t='task' # Taskwarrior
 alias ta='task add' # Add Task to Taskwarrior
-alias tdel='task delete' # Delete Task from Taskwarrior
-alias tl='task entry.after:now-1wk list' # List Tasks created in the last week
-alias tla='task list' # List all Tasks
-alias b='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME' #Git bare alias
-alias ba='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME add' # Git bare add
-alias bam='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME commit -p -S -m' #Git bare commit -am
-alias bs='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME status' # Git barestatus
-alias bad='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME diff' # Git bare diff
-alias bpu='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME push' # Git bare push
-alias bpl='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME pull' # Git bare push
+alias td='task delete' # Delete Task from Taskwarrior
+alias tda='task purge' # Purge Tasks in Taskwarrior
+alias ts='task start' # Start Task in Taskwarrior
+alias tp='task stop' # End Task in Taskwarrior
+alias tc='task done' # Complete Task in Taskwarrior
+alias tl='task list' # List all Tasks
+alias tm='task modify' # Modify Task Attribute
+alias tlw='task entry.after:now-1wk list' # List Tasks created in the last week
+alias tlm='task entry.after:now-4wk list' # List Tasks created in the last month
 
 # docker
 alias checkov-iac='docker run -v $(pwd):/iac checkov-iac'
@@ -212,51 +206,195 @@ alias reload="source ~/.zshrc"
 
 # Manage packages easier
 if [ -f /usr/bin/apt ]; then
-  alias update='sudo apt update'
-  alias upgrade='sudo apt update && sudo apt dist-upgrade && sudo apt autoremove && sudo apt clean'
-  alias install='sudo apt install'
-fi
+    alias update='sudo apt update'
+    alias upgrade='sudo apt update && sudo apt dist-upgrade && sudo apt autoremove && sudo apt clean'
+    alias install='sudo apt install'
+  fi
 
-if [ -f /usr/bin/pacman ]; then
-  alias update='sudo pacman -Syyy'
-  alias upgrade='sudo pacman -Syu'
-  alias install='sudo pacman -S'
-fi
+  if [ -f /usr/bin/pacman ]; then
+    alias update='sudo pacman -Syyy'
+    alias upgrade='sudo pacman -Syu'
+    alias install='sudo pacman -S'
+  fi
 
-# URL: https://github.com/mrhavens/Dedockify/blob/9548dbfff828a89dc580485036aaf84de7f462d7/README.md
-alias dedockify="docker run -v /var/run/docker.sock:/var/run/docker.sock --rm mrhavens/dedockify"
+  # URL: https://github.com/mrhavens/Dedockify/blob/9548dbfff828a89dc580485036aaf84de7f462d7/README.md
+  alias dedockify="docker run -v /var/run/docker.sock:/var/run/docker.sock --rm mrhavens/dedockify"
 
-# kubernetes
-# URL: https://github.com/kubernetes/kubernetes/issues/17512
+  # kubernetes
+  # URL: https://github.com/kubernetes/kubernetes/issues/17512
 
-alias util='kubectl get nodes --no-headers | awk '\''{print $1}'\'' | xargs -I {} sh -c '\''echo {} ; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo '\'''
+  alias util='kubectl get nodes --no-headers | awk '\''{print $1}'\'' | xargs -I {} sh -c '\''echo {} ; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo '\'''
 
-# Get CPU request total (we x20 because because each m3.large has 2 vcpus (2000m) )
-alias cpualloc='util | grep % | awk '\''{print $1}'\'' | awk '\''{ sum += $1 } END { if (NR > 0) { print sum/(NR*20), "%\n" } }'\'''
+  # Get CPU request total (we x20 because because each m3.large has 2 vcpus (2000m) )
+  alias cpualloc='util | grep % | awk '\''{print $1}'\'' | awk '\''{ sum += $1 } END { if (NR > 0) { print sum/(NR*20), "%\n" } }'\'''
 
-# Get mem request total (we x75 because because each m3.large has 7.5G ram )
-alias memalloc='util | grep % | awk '\''{print $5}'\'' | awk '\''{ sum += $1 } END { if (NR > 0) { print sum/(NR*75), "%\n" } }'\'''
+  # Get mem request total (we x75 because because each m3.large has 7.5G ram )
+  alias memalloc='util | grep % | awk '\''{print $5}'\'' | awk '\''{ sum += $1 } END { if (NR > 0) { print sum/(NR*75), "%\n" } }'\'''
 
-# AWS Check
-alias aws-check="curl -s https://ip-ranges.amazonaws.com/ip-ranges.json \
-  | jq '.prefixes | map(select(.service==\"ROUTE53_HEALTHCHECKS\")) | map(.ip_prefix)'"
+  # AWS Check
+  alias aws-check="curl -s https://ip-ranges.amazonaws.com/ip-ranges.json \
+    | jq '.prefixes | map(select(.service==\"ROUTE53_HEALTHCHECKS\")) | map(.ip_prefix)'"
 
-# sudo for 1Password
-alias sudo="sudo -A"
-alias op="/mnt/c/Temp/_temp/cli/shims/op.exe"
+  # sudo for 1Password
+  alias sudo="sudo -A"
+  alias op="/mnt/c/Temp/_temp/cli/shims/op.exe"
 
-alias code="/mnt/c/Program\ Files/Microsoft\ VS\ Code/Code.exe"
+  alias code="/mnt/c/Program\ Files/Microsoft\ VS\ Code/Code.exe"
 
-# json
-alias prettyjson='python -m json.tool'
+  # json
+  alias prettyjson='python -m json.tool'
 
-# terraform
-alias tf='terraform'
-alias tfa='terraform apply'
-alias tfc='terraform console'
-alias tfd='terraform destroy'
-alias tff='terraform fmt'
-alias tfi='terraform init'
-alias tfo='terraform output'
-alias tfp='terraform plan'
-alias tfv='terraform validate'
+  # terraform
+  alias tf='terraform'
+  alias tfa='terraform apply'
+  alias tfc='terraform console'
+  alias tfd='terraform destroy'
+  alias tff='terraform fmt'
+  alias tfi='terraform init'
+  alias tfo='terraform output'
+  alias tfp='terraform plan'
+  alias tfv='terraform validate'
+
+  # Git Bare Aliases
+  alias b='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME' #Git Bare
+  alias ba='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME add' # Git Bare Add
+  alias bam='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME commit -p -S -m' #Git Bare Commit Patch Sign Message
+  alias bs='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME status' # Git Bare Status
+  alias bad='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME diff' # Git Bare Diff
+  alias bpu='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME push' # Git Bare Push
+  alias bpl='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME pull' # Git Bare Pull
+  alias bcd='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME checkout dev' # Git Checkout Dev
+  alias bcm='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME checkout main' # Git Checkout Main
+  alias bmd='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME checkout main && git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME merge dev -m' # Git Bare Checkout Main & Merge Dev into Main
+  alias buc='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME assume-unchanged' # Git Bare Assume Specified File(s) Unchanged
+  alias bch='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME assume-changed' # Git Bare Assume Specified File(s) Changed
+
+  # kubectl
+  alias k=kubectl
+  alias kaf='kubectl apply -f'
+  alias kca='_kca(){ kubectl "$@" --all-namespaces;  unset -f _kca; }; _kca'
+  alias kccc='kubectl config current-context'
+  alias kcdc='kubectl config delete-context'
+  alias kcgc='kubectl config get-contexts'
+  alias kcn='kubectl config set-context --current --namespace'
+  alias kcp='kubectl cp'
+  alias kcsc='kubectl config set-context'
+  alias kctx=kubectx
+  alias kcuc='kubectl config use-context'
+  alias kdcj='kubectl describe cronjob'
+  alias kdcm='kubectl describe configmap'
+  alias kdd='kubectl describe deployment'
+  alias kdds='kubectl describe daemonset'
+  alias kdel='kubectl delete'
+  alias kdelcj='kubectl delete cronjob'
+  alias kdelcm='kubectl delete configmap'
+  alias kdeld='kubectl delete deployment'
+  alias kdelds='kubectl delete daemonset'
+  alias kdelf='kubectl delete -f'
+  alias kdeli='kubectl delete ingress'
+  alias kdelj='kubectl delete job'
+  alias kdelno='kubectl delete node'
+  alias kdelns='kubectl delete namespace'
+  alias kdelp='kubectl delete pods'
+  alias kdelpvc='kubectl delete pvc'
+  alias kdels='kubectl delete svc'
+  alias kdelsa='kubectl delete sa'
+  alias kdelsec='kubectl delete secret'
+  alias kdelss='kubectl delete statefulset'
+  alias kdi='kubectl describe ingress'
+  alias kdj='kubectl describe job'
+  alias kdno='kubectl describe node'
+  alias kdns='kubectl describe namespace'
+  alias kdp='kubectl describe pods'
+  alias kdpvc='kubectl describe pvc'
+  alias kdrs='kubectl describe replicaset'
+  alias kds='kubectl describe svc'
+  alias kdsa='kubectl describe sa'
+  alias kdsec='kubectl describe secret'
+  alias kdss='kubectl describe statefulset'
+  alias kecj='kubectl edit cronjob'
+  alias kecm='kubectl edit configmap'
+  alias ked='kubectl edit deployment'
+  alias keds='kubectl edit daemonset'
+  alias kei='kubectl edit ingress'
+  alias kej='kubectl edit job'
+  alias keno='kubectl edit node'
+  alias kens='kubectl edit namespace'
+  alias kep='kubectl edit pods'
+  alias kepvc='kubectl edit pvc'
+  alias kers='kubectl edit replicaset'
+  alias kes='kubectl edit svc'
+  alias kess='kubectl edit statefulset'
+  alias keti='kubectl exec -t -i'
+  alias kga='kubectl get all'
+  alias kgaa='kubectl get all --all-namespaces'
+  alias kgcj='kubectl get cronjob'
+  alias kgcm='kubectl get configmaps'
+  alias kgcma='kubectl get configmaps --all-namespaces'
+  alias kgd='kubectl get deployment'
+  alias kgda='kubectl get deployment --all-namespaces'
+  alias kgds='kubectl get daemonset'
+  alias kgdsa='kubectl get daemonset --all-namespaces'
+  alias kgi='kubectl get ingress'
+  alias kgia='kubectl get ingress --all-namespaces'
+  alias kgj='kubectl get job'
+  alias kgno='kubectl get nodes'
+  alias kgns='kubectl get namespaces'
+  alias kgp='kubectl get pods'
+  alias kgpa='kubectl get pods --all-namespaces'
+  alias kgpall='kubectl get pods --all-namespaces -o wide'
+  alias kgpvc='kubectl get pvc'
+  alias kgpvca='kubectl get pvc --all-namespaces'
+  alias kgrs='kubectl get replicaset'
+  alias kgs='kubectl get svc'
+  alias kgsa='kubectl get svc --all-namespaces'
+  alias kgsec='kubectl get secret'
+  alias kgseca='kubectl get secret --all-namespaces'
+  alias kgss='kubectl get statefulset'
+  alias kgssa='kubectl get statefulset --all-namespaces'
+  alias kk='kubectl krew'
+  alias kl='kubectl logs'
+  alias kl1h='kubectl logs --since 1h'
+  alias kl1m='kubectl logs --since 1m'
+  alias kl1s='kubectl logs --since 1s'
+  alias klf='kubectl logs -f'
+  alias klf1h='kubectl logs --since 1h -f'
+  alias klf1m='kubectl logs --since 1m -f'
+  alias klf1s='kubectl logs --since 1s -f'
+  alias kns=kubens
+  alias kpf='kubectl port-forward'
+  alias krh='kubectl rollout history'
+  alias krsd='kubectl rollout status deployment'
+  alias krsss='kubectl rollout status statefulset'
+  alias kru='kubectl rollout undo'
+  alias ks=kubescape
+  alias ksd='kubectl scale deployment'
+  alias kseal='kubeseal --controller-name=sealed-secrets --scope namespace-wide'
+  alias ksss='kubectl scale statefulset'
+  alias kst='kubectl get deploy -o json |  jq ".items[] | {name:.metadata.name} + .spec.strategy.rollingUpdate"'
+  alias kt=kubetail
+  alias util='kubectl get nodes --no-headers | awk '\''{print $1}'\'' | xargs -I {} sh -c '\''echo {} ; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo '\'
+
+  # Terraform
+  alias tf=terraform
+  alias tfa='terraform apply'
+  alias tfc='terraform console'
+  alias tfd=/usr/local/bin/terraform-dnx
+  alias tff='terraform fmt'
+  alias tfi='terraform init'
+  alias tfo='terraform output'
+  alias tfp='terraform plan'
+  alias tfv='terraform validate'
+
+  #Random Aliases
+  alias gmd='git checkout main && git merge dev -m' # Git Chechout Main & Git Merge Dev into Main With Message
+  alias apt='nala' # Replace apt with nala
+  alias a='apt-get' # APT Package Manager
+  alias uwu='nala upgrade -y' # Nala upgrade -y
+  alias 10k='p10k configure' # Configure Powerlevel10k
+  alias e='nvim' # A highly customizable editor
+  alias z='zsh' #The better shell
+  alias tm='tmux' # Terminal Multiplexer
+  alias ghb='cd ~/GitHub' # Jump to GitHub Projects
+alias ct='clear' # Clear Terminal
+alias cl='zsh /data/data/com.termux/files/usr/etc/motd/init.sh' # Clear terminal
