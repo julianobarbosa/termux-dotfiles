@@ -80,6 +80,17 @@ alias bmd='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME checkout main &
 alias buc='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME assume-unchanged' # Git Bare Assume Specified File(s) Unchanged
 alias bch='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME assume-changed' # Git Bare Assume Specified File(s) Changed
 
+# Terraform
+tf=terraform
+tfa='terraform apply'
+tfc='terraform console'
+tfd=/usr/local/bin/terraform-dnx
+tff='terraform fmt'
+tfi='terraform init'
+tfo='terraform output'
+tfp='terraform plan'
+tfv='terraform validate'
+
 #Random Aliases
 alias gmd='git checkout main && git merge dev -m' # Git Chechout Main & Git Merge Dev into Main With Message
 alias apt='nala' # Replace apt with nala
