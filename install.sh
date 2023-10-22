@@ -282,7 +282,10 @@ source ~/.virtualenvs/tools3/bin/activate
 python -m pip install -U pip setuptools wheel
 python -m pip install -U ansible ansible-lint autoenv autopep8 black codespell colorama cookiecutter fast.com flake8 gnucash-to-beancount isort jedi-language-server jrnl mps-youtube molecule mypy pre-commit prospector pyarmor pydocstyle pyflakes pylama pylint pyls rows speedtest-cli reorder-python-imports thefuck zabbix-api youtube-dl tmuxp vulture yapf yamlfix yamllint visidata virtualenv virtualenvwrapper
 
+echo "--- Install direnv ---"
+curl -sfL https://direnv.net/install.sh | bash
 
+echo "--- atuin login ---"
 atuin login -u barbosa
 
 echo "--- Install coreutils ---"
