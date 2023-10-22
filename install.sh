@@ -277,10 +277,18 @@ mkdir -p ~/.virtualenvs
 cd ~/.virtualenvs
 
 # tools3
+echo "--- Install Virtual env for: tools3"
 python -m venv tools3
 source ~/.virtualenvs/tools3/bin/activate
 python -m pip install -U pip setuptools wheel
 python -m pip install -U ansible ansible-lint autoenv autopep8 black codespell colorama cookiecutter fast.com flake8 gnucash-to-beancount isort jedi-language-server jrnl mps-youtube molecule mypy pre-commit prospector pyarmor pydocstyle pyflakes pylama pylint pyls rows speedtest-cli reorder-python-imports thefuck zabbix-api youtube-dl tmuxp vulture yapf yamlfix yamllint visidata virtualenv virtualenvwrapper
+
+# azure-cli
+echo "--- Install Virtual env for: azure-cli"
+python -m venv azure-cli
+source ~/.virtualenvs/azure-cli/bin/activate
+python -m pip install -U pip setuptools wheel
+python -m pip install -U azure-cli
 
 echo "--- Install direnv ---"
 curl -sfL https://direnv.net/install.sh | bash
