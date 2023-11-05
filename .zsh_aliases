@@ -44,6 +44,8 @@ alias pi='pnpm install' # PNPM Install from package.json
 alias pil='pnpm install --frozen-lockfile' # PNPM Lockfile not updated
 alias pin='pnpm install --no-lockfile' # PNPM Lockfile not generated
 alias pu='pnpm update' # PNPM Update Packages
+alias puf='pnpm update --frozen-lockfile' # PNPM Lockfile not updated
+alias pun='pnpm update --no-lockfile' # PNPM Lockfile not generated
 alias pr='pnpm run' # PNPM Run Script
 alias prm='pnpm remove' # PNPM Remove Package
 alias prd='pnpm dev -o' # PNPM Run Dev
@@ -68,6 +70,20 @@ alias tlm='task entry.after:now-4wk list' # List Tasks created in the last month
 
 # docker
 alias checkov-iac='docker run -v $(pwd):/iac checkov-iac'
+# Git Bare Aliases
+alias b='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME' #Git Bare
+alias ba='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME add' # Git Bare Add
+alias bam='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME commit -p -S -m' #Git Bare Commit Patch Sign Message
+alias bs='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME status' # Git Bare Status
+alias bad='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME diff' # Git Bare Diff
+alias bpu='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME push' # Git Bare Push
+alias bpl='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME pull' # Git Bare Pull
+alias bcd='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME checkout dev' # Git Checkout Dev
+alias bcm='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME checkout main' # Git Checkout Main
+alias bmd='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME checkout main && git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME merge dev' # Git Bare Checkout Main & Merge Dev into Main
+alias bmm='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME checkout dev && git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME merge main' # Git Bare Checkout Main & Merge Dev into Main
+alias buc='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME assume-unchanged' # Git Bare Assume Specified File(s) Unchanged
+alias bch='git --git-dir=$HOME/GitHub/dotfiles --work-tree=$HOME assume-changed' # Git Bare Assume Specified File(s) Changed
 
 # aliases
 alias ....='cd ../../../../'
@@ -396,5 +412,5 @@ if [ -f /usr/bin/apt ]; then
   alias z='zsh' #The better shell
   alias tm='tmux' # Terminal Multiplexer
   alias ghb='cd ~/GitHub' # Jump to GitHub Projects
-alias ct='clear' # Clear Terminal
-alias cl='zsh /data/data/com.termux/files/usr/etc/motd/init.sh' # Clear terminal
+  alias ct='clear' # Clear Terminal
+  alias cl='zsh /data/data/com.termux/files/usr/etc/motd/init.sh' # Clear terminal
