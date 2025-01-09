@@ -19,7 +19,7 @@ termux-setup-storage
 echo "--- Install termux repo for python3.9"
 pkg install tur-repo
 apt update && yes | apt upgrade || error_exit "${RED}Failed to update packages.${ENDCOLOR}"
-apt update && apt install gh zsh openssh -y
+apt update && apt install gh git-lfs zsh openssh -y
 
 # Set up GitHub auth
 gh auth login || error_exit "${RED}Failed to set up GitHub auth.${ENDCOLOR}"
